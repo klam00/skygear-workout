@@ -4,16 +4,27 @@ import { connect } from 'react-redux'
 import Header from '../components/Header'
 import MainSection from '../components/MainSection'
 import * as TodoActions from '../actions'
-
-const App = ({todos, actions}) => (
-  <div>
-    <Header addTodo={actions.addTodo} />
-    <MainSection todos={todos} actions={actions} />
-  </div>
-)
+import Loadable from 'react-loading-overlay'
+const App = ({todos, actions}) => {
+  console.log(todos.requesting);
+  return  (
+    <div>
+      <Loadable
+          active={todos.requesting}
+          spinner
+          style={{
+            width: '100%',
+            height: '100%',
+            position: 'absolute'
+          }}
+      />
+      <Header addTodo={actions.addTodo} getExecises={actions.getExecises}/>
+      <MainSection todos={todos.list} actions={actions} />
+    </div>
+  )}
 
 App.propTypes = {
-  todos: PropTypes.array.isRequired,
+  todos: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired
 }
 
@@ -22,7 +33,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(TodoActions, dispatch)
+  actions: bindActionCreators(TodoActions, dispatch)
 })
 
 export default connect(

@@ -14,10 +14,6 @@ export default class TodoItem extends Component {
     editing: false
   }
 
-  handleDoubleClick = () => {
-    this.setState({ editing: true })
-  }
-
   handleSave = (id, text) => {
     if (text.length === 0) {
       this.props.deleteTodo(id)
@@ -44,7 +40,7 @@ export default class TodoItem extends Component {
                  type="checkbox"
                  checked={todo.completed}
                  onChange={() => completeTodo(todo.id)} />
-          <label onDoubleClick={this.handleDoubleClick}>
+          <label>
             {todo.text}
           </label>
           <button className="destroy"

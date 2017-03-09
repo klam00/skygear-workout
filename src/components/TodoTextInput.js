@@ -4,6 +4,7 @@ import classnames from 'classnames'
 export default class TodoTextInput extends Component {
   static propTypes = {
     onSave: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
     text: PropTypes.string,
     placeholder: PropTypes.string,
     editing: PropTypes.bool,
@@ -38,16 +39,17 @@ export default class TodoTextInput extends Component {
     return (
       <input className={
         classnames({
-          edit: this.props.editing,
           'new-todo': this.props.newTodo
         })}
-        type="text"
-        placeholder={this.props.placeholder}
-        autoFocus="true"
-        value={this.state.text}
-        onBlur={this.handleBlur}
-        onChange={this.handleChange}
-        onKeyDown={this.handleSubmit} />
+             readOnly='readonly'
+             type="text"
+             autoFocus="true"
+             value={"Generate a workout"}
+             onBlur={this.handleBlur}
+             onChange={this.handleChange}
+             onKeyDown={this.handleSubmit}
+             onClick={this.props.onClick}
+      />
     )
   }
 }
